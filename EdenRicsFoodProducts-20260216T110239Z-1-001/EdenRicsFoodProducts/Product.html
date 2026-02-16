@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edenric's Food Products</title>
+    <link rel="stylesheet" href="Products.css">
+    <script src="Products.js" defer></script>
+    <style>
+        #progressBar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 8px;
+            background-color: #e21f1f;
+            z-index: 9999;
+        }
+
+        .circle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(13, 228, 13, 0.466), rgba(6, 125, 44, 0.5));
+            transition: transform 0.1s, left 0.1s, top 0.1s;
+            box-shadow: 0 0 20px #faff64,
+                        0 0 60px #0d9f0b,
+                        0 0 100px #02dc88;
+            animation: colors 1s infinite;
+            transform: translate(-50%, -50%);
+        }
+
+        .circle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @media (max-width: 724px) {
+            .circle-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Edenric's Food <br> Products</h1>
+        <img src="/images/Eden.png" alt="Logo">
+        
+    </header>
+    <nav>
+        <div class="border">
+            <a href="index.html">Home</a>
+            <a href="Product.html">Products</a>
+            <a href="Testimonial.html">Testimonials</a>
+            <a href="aboutus.html">About Us</a>
+        </div>
+    </nav>
+
+    <div class="circle-container">
+        <!-- Circles for animation -->
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const coords = { x: 0, y: 0 };
+            const circles = document.querySelectorAll(".circle");
+
+            circles.forEach(function (circle) {
+                circle.x = 0;
+                circle.y = 0;
+            });
+
+            window.addEventListener("mousemove", function (e) {
+                coords.x = e.pageX;
+                coords.y = e.pageY - window.scrollY; // Adjust for vertical scroll position
+            });
+
+            function animateCircles() {
+                let x = coords.x;
+                let y = coords.y;
+
+                circles.forEach(function (circle, index) {
+                    circle.style.left = `${x - 12}px`;
+                    circle.style.top = `${y - 12}px`;
+                    circle.style.transform = `scale(${(circles.length - index) / circles.length})`;
+
+                    const nextCircle = circles[index + 1] || circles[0];
+                    circle.x = x;
+                    circle.y = y;
+
+                    x += (nextCircle.x - x) * 0.25;
+                    y += (nextCircle.y - y) * 0.25;
+                });
+
+                requestAnimationFrame(animateCircles);
+            }
+
+            animateCircles();
+        });
+    </script>
+
+    <!-- Progress bar -->
+    <div id="progressBar"></div>
+    <script>
+        window.onscroll = function () {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+    </script>
+    <div class="container">
+        <div class="products">
+            <img src="" alt="">
+        </div>
+        <button class="cart" onclick="goToAddToCartPage()">
+            <img src="/images/cart.png" alt="Cart">
+        </button>
+        <button class="profile" onclick="toggleSignUpForm()">
+            <img src="/images/profile.png" alt="SignUp/LogIn"> 
+        </button>
+    </div>
+    <div class="overlay" id="overlay"></div>
+<div class="modal" id="loginModal">
+    <div class="login-wrapper active"> 
+        <h2>Log In</h2>
+        <form id="loginForm">
+            <label for="loginEmail">Email:</label>
+            <input type="email" id="loginEmail" name="loginEmail" placeholder="Enter your email" required>
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" name="loginPassword" placeholder="Enter your password" required>
+            <div class="form-buttons">
+                <button type="button" class="back-btn" onclick="toggleModal()">Back</button>
+                <button type="submit" class="confirm-btn">Log In</button>
+            </div>
+            <p>Don't have an account? <a href="#" onclick="toggleSignUp()">Sign Up</a></p>
+        </form>
+    </div>
+    <div class="signup-wrapper"> <!-- Hide sign-up form by default -->
+        <h2>Sign Up</h2>
+        <form id="signUp">
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+            <label for="email">Gmail Address:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" placeholder="Enter your address" required>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Choose a username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <div class="form-buttons">
+                <button type="button" class="back-btn" onclick="toggleModal()">Back</button>
+                <button type="submit" class="confirm-btn">Confirm</button>
+            </div>
+            <p>Already have an account? <a href="#" onclick="toggleLogin()">Sign In</a></p>
+        </form>
+    </div>
+</div>
+    <div class="menu">
+        <div class="heading">
+            <h2>Edenric's Food Products</h2>
+            <h3>&mdash;Menu&mdash;</h3>
+        </div>
+        <div class="food-items">
+            <img src="/images/lump.jpg" alt="Fresh Lumpia">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>Fresh Lumpia</h4>
+                    <h4 class="price">PHP 65.00</h4>
+                </div>
+                <p><br>DESCRIPTION: <br>
+                    <br>
+                    Fresh Lumpia is a popular Filipino dish consisting of a thin crepe-like wrapper
+                     filled with a mix of fresh vegetables, and sometimes tofu, 
+                     shrimp, and meats. It is served cold and topped with a savory-sweet sauce, 
+                     often garnished with crushed peanuts and minced garlic.
+                     </p>
+                <button onclick = "addToCart('Fresh Lumpia', 65.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/Spiced.jpg" alt="Spiced Coco">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>Spiced Coco <br>Vinegar</h4>
+                    <h4 class="price">PHP 90.00 <br>320 ML</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Kamnortenyo's Spiced Coco Vinegar
+                    kamnortenyo Bicolano Oragon! Ignite your taste buds with this fiery vinegar!
+                     It is made up of natural coco vinegar, sugar, herbs and spices.
+                    
+                    </p>
+                    <button onclick = "addToCart('Spiced Choco Vinegar', 90.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/Pineapple_Vinaigrette.jpg" alt="Pineapple_Vinaigrette">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>Pineapple Vinaigrette</h4>
+                    <h4 class="price">PHP 140.00 <br>370 ML</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Pineapple Vinaigrette 
+                    All-Natural Salad Dressing consists of coconut sap vinegar, water, 
+                    queen Formosa pineapple, brown sugar, cornstarch, herbs, spices,
+                     salt, and xanthan gum (stabilizer). This product has pineapple 
+                     which may cause allergic reactions. Shake well before use. 
+                    </p>
+                    <button onclick = "addToCart('Pineapple_Vinaigrette', 140.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/Pineapple_Sweet_Chili_Sauce.jpg" alt="Pineapple_Sweet_Chili_Sauce">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>Pineapple Sweet Chili</h4>
+                    <h4 class="price">PHP 90.00</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Pineapple Sweet Chili Sauce 
+                    100% Natural! No preservatives! Shake well before use and put the desired amount of your dip! 
+                    This product is made with water, pineapple puree, sugar, coconut sap vinegar, 
+                    cornstarch, herbs & spices, salt and xanthan gum. 
+                    </p>
+                    <button onclick = "addToCart('Pineapple_Sweet_Chili_Sauce', 90.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/Basil_Pesto.jpg" alt="Basil_Pesto">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>Basil Pesto</h4>
+                    <h4 class="price">PHP 220.00 <br>190 ML</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Fresh Lumpia is a popular Filipino dish consisting of a thin crepe-like wrapper <br>
+                    filled with a mix of fresh vegetables, and sometimes tofu, shrimp, and meats.</p>
+                    <button onclick = "addToCart('Basil_Pesto', 220.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/Sampalok_Juice.jpg" alt="Sampalok_Juice">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>Sampalok Juice RTD</h4>
+                    <h4 class="price">PHP 45.00 <br>
+                        500 ML</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Sweetened Sampalok Juice 
+                    Tropical Flavor - a burst in every sip! Made with water, sugar, 
+                    sampalok puree, and ascorbic acid. 
+                    </p>
+                    <button onclick = "addToCart('Sampalok_Juice', 45.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/Sampalok_Concentrated_Juice.jpg" alt="Sampalok_Concentrated_Juice">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>Sampalok Juice <br> (Concentrated)</h4>
+                    <h4 class="price">PHP 380.00 <br>500 ML</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Sweetened Sampalok Juice 
+                    Tropical Flavor - a burst in every sip! Made with water, sugar, sampalok puree, 
+                    and ascorbic acid. 
+                    </p>
+                    <button onclick = "addToCart('Sampalok_Concentrated_Juice', 380.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/Roselle_Juice.jpg" alt="Roselle_Juice">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>Roselle Juicee RTD</h4>
+                    <h4 class="price">PHP 45.00 <br>500 ML</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Sweetened Roselle Juice
+                    A taste of the tropics in every glass. Try now the Sweetened Roselle Juice made with water,
+                     roselle puree, and sugar ascorbic acid.
+                    </p>
+                    <button onclick = "addToCart('Roselle_Juice', 45.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/Banana_Cake.jpg" alt="Banana Cake">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>Banana Cake</h4>
+                    <h4 class="price">PHP 25.00</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Banana in a Cake? Try now! made with egg, milk, oil, mashed banana, sugar, 
+                    all purpose flour, baking soda, salt, raisins and chocolate chips.
+                    </p>
+                    <button onclick = "addToCart('Banana_Cake', 25.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/Chicken_Empanada.jpg" alt="Chicken Empanada">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>Chicken Empanada</h4>
+                    <h4 class="price">PHP 35.00</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Fresh Lumpia is a popular Filipino dish consisting of a thin crepe-like wrapper <br>
+                    filled with a mix of fresh vegetables, and sometimes tofu, shrimp, and meats.</p>
+                    <button onclick = "addToCart('Chicken_Empanada', 35.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/Tuna_Clubhouse.jpg" alt="Tuna Clubhouse">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>Tuna Clubhouse</h4>
+                    <h4 class="price">PHP 55.00</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Fresh Lumpia is a popular Filipino dish consisting of a thin crepe-like wrapper <br>
+                    filled with a mix of fresh vegetables, and sometimes tofu, shrimp, and meats.</p>
+                    <button onclick = "addToCart('Tuna_Clubhouse', 55.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/Veggie_Burger.jpg" alt="Veggie Burger">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>Veggie Burger</h4>
+                    <h4 class="price">PHP 65.00</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Want to eat a burger without the guilt of eating unhealthy foods?
+                     Try the Veggie Burger (Patty)! it is freshly made with puso ng saging,
+                     malunggay and talbos ng kamote! 
+                    </p>
+                    <button onclick = "addToCart('Veggie_Burger', 65.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/CocoMinty_Cookies.jpg" alt="CocoMinty">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>CocoMinty</h4>
+                    <h4 class="price">PHP 65.00</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Cocominty w/Malunggay Cookies
+                    Try out this tropical taste of coconut cookies with a healthy twist of malunggay! 
+                    Consisting of all purpose flour, fresh coconut milk, sugar, coconut oil, 
+                    cethydr***, chocolate chips, dehydrated peppermint powder
+                    , ** powder, salt, and the main ingredient - dehydrated malunggay powder.
+                     This product contains flour, coconut and chocolate which may cause allergic reaction. 
+                     Store in cool dry place, and don't forget! It is ready to eat!
+                </p>
+                <button onclick = "addToCart('CocoMinty', 65.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/CocoPinya_Cookies.jpg" alt="CocoPinya">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>CocoPinya</h4>
+                    <h4 class="price">PHP 65.00</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Cocopinya w/ Malunggay Cookies 
+	            Looking for a unique blend of sweet pinapple and malunggay 
+                - also known as the Miracle Tree due to its numerous health benefits and versatility! 
+                Consisting of all purpose flour, coconut milk, sugar, coconut oil, 
+                 dehydrated malunggay powder, pineapple ***** **** powder, a
+                 nd salt. This product contains flour, coconut, and pineapple, 
+                 which may cause allergic reactions in some individuals.
+                  Store in a cool, dry place. No need to cook - it's ready to eat!
+                    </p>
+                    <button onclick = "addToCart('CocoPinya', 65.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/ChocoLay_Cookies.jpg" alt="ChocoLay">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>ChocoLay</h4>
+                    <h4 class="price">PHP 65.00</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Chocolay Cookies Malunggay 
+                    Indulge to the guilt-free chocolate cookies with a special twist of malunggay. 
+                     This contains all purpose flour, sugar, coconut ***, chocolate chips, 
+                     malunggay leavesm baking powder, and salt.  This product contains flour, 
+                     coconut, and chocolate, which may cause allergic reactions. Store it in a cool,
+                      dry place. It's ready to eat, no cooking required!
+                    </p>
+                    <button onclick = "addToCart('ChocoLay', 65.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="/images/Toasted_Coconut_Macaroons.jpg" alt="Toasted Coconut Macaroons with PINYA DE LECHE">
+            <div class="details">
+                <div class="details-sub">
+                    <h4>Toasted Coconut <br>Macaroons 
+                        </h4>
+                    <h4 class="price">PHP 140.00 <br> Pack</h4>
+                </div>
+                <p>DESCRIPTION: <br>
+                    <br>
+                    Toasted Coconut Macaroons with Pinya de Leche
+                    Try the infamous toasted coconut macaroons with pinya de leche! 
+                    This coconut macaroons is made with desiccated coconut, condensed milk, 
+                    sugar, pineapple, butter, egg and cheese 
+                    </p>
+                    <button onclick = "addToCart('Toasted_Coconut_Macaroons', 140.00)">Add To Cart</button>
+            </div>
+        </div>
+        <div id="addToCartModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <p> <!-- Message will appear here dynamically --> </p>
+                <button onclick="closeModal()">OK</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+            </div>
+        </div>
+        
+    </div>
+    </div>
+    </div>
+</body>

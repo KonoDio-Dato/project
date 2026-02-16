@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #a9dfbf, #ffffff);
+      min-height: 100vh;
+    }
+
+    .shopping-cart-header {
+      background-color: green;
+      padding: 10px;
+      text-align: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .cart-container {
+      padding: 30px;
+      width: 55%;
+      max-height: 400px;
+      margin: 10px auto;
+      border: 1px solid #333;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .item {
+      border: 1px solid #333;
+      padding: 10px;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .item-details {
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .item-controls {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .controls button {
+      padding: 5px 10px;
+      cursor: pointer;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .remove-btn {
+      background-color: red;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      position: absolute;
+      top: 40px;
+      right: 10px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .remove-btn:hover {
+      background-color: darkred;
+    }
+
+    .buy-all-container {
+      padding: 40px;
+      text-align: right;
+    }
+
+    .total-price {
+      margin: 20px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: linear-gradient(to right, #deff81, #73b86d, #4f8f49);
+      padding: 20px;
+      border-radius: 5px;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .modal-buttons button {
+      margin: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+      border: 2px solid green;
+      background-color: white;
+      color: green;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .modal-buttons button:hover {
+      background-color: green;
+      color: white;
+    }
+
+    button {
+      background-color: white;
+      border: 2px solid green;
+      color: green;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: green;
+      color: white;
+    }
+
+    .back-button {
+      background-color: white;
+      border: 2px solid green;
+      color: green;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      margin-right: 10px;
+    }
+
+    .back-button:hover {
+      background-color: green;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="shopping-cart-header">
+    SHOPPING CART
+  </div>
+
+  <div class="cart-container" id="cart-container">
+    <!-- Cart items will dynamically load here -->
+  </div>
+
+  <div class="total-price" id="total-price-container">
+    Total Price: PHP 0.00
+  </div>
+
+  <div class="buy-all-container">
+    <a href="Product.html"><button class="back-button" onclick="goBack()">Back</button></a>
+    <button class="buy-all-btn" onclick="buySelected()">Purchase</button>
+  </div>
+
+  <div class="modal" id="confirmation-modal">
+    <div class="modal-content">
+      <p id="modal-message">You are about to make a purchase.</p>
+      <div class="modal-buttons">
+        <button class="confirm-btn" onclick="confirmPurchase()">Confirm</button>
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="circle-container">
+    <!-- Circles for animation -->
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const coords = { x: 0, y: 0 };
+        const circles = document.querySelectorAll(".circle");
+
+        circles.forEach(function (circle) {
+            circle.x = 0;
+            circle.y = 0;
+        });
+
+        window.addEventListener("mousemove", function (e) {
+            coords.x = e.pageX;
+            coords.y = e.pageY - window.scrollY; 
+        });
+
+        function animateCircles() {
+            let x = coords.x;
+            let y = coords.y;
+
+            circles.forEach(function (circle, index) {
+                circle.style.left = `${x - 12}px`;
+                circle.style.top = `${y - 12}px`;
+                circle.style.transform = `scale(${(circles.length - index) / circles.length})`;
+
+                const nextCircle = circles[index + 1] || circles[0];
+                circle.x = x;
+                circle.y = y;
+
+                x += (nextCircle.x - x) * 0.25;
+                y += (nextCircle.y - y) * 0.25;
+            });
+
+            requestAnimationFrame(animateCircles);
+        }
+
+        animateCircles();
+    });
+</script>
+
+<!-- Progress bar -->
+    <div id="progressBar"></div>
+    <script>
+        window.onscroll = function () {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+</script>
+
+  <script>
+    let itemPrices = {}; 
+    let itemQuantities = {}; 
+    let selectedItems = new Set();
+
+    function goBack() {
+      window.location.href = 'Products.html'; 
+    }
+
+    function loadCartItems() {
+      const cartContainer = document.getElementById('cart-container');
+      const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+      cartContainer.innerHTML = ''; // Clear the cart container before re-rendering
+
+      if (cartItems.length === 0) {
+        cartContainer.innerHTML = '<p>No items found in your cart.</p>';
+        return;
+      }
+
+      // Dynamically reassign index during rendering
+      cartItems.forEach((product, index) => {
+        addCartItem(product.name, product.price, index);
+      });
+    }
+
+    function addCartItem(productName, productPrice, dynamicIndex) {
+      const cartContainer = document.getElementById('cart-container');
+
+      itemPrices[dynamicIndex] = productPrice;
+      itemQuantities[dynamicIndex] = 1;
+
+      const newItemElement = document.createElement('div');
+      newItemElement.className = 'item';
+      newItemElement.dataset.index = dynamicIndex; // Store index in the DOM element
+
+      newItemElement.innerHTML = `
+        <div class="item-details">
+          <input type="checkbox" id="select-${dynamicIndex}" onchange="toggleSelection(${dynamicIndex})">
+          <span>Product: ${productName}</span><br>
+          <span>Price: PHP ${productPrice.toFixed(2)}</span>
+        </div>
+        <div class="item-controls">
+          <button onclick="changeQuantity(${dynamicIndex}, -1)">-</button>
+          <label id="quantity-${dynamicIndex}">${itemQuantities[dynamicIndex]}</label>
+          <button onclick="changeQuantity(${dynamicIndex}, 1)">+</button>
+          <button class="remove-btn" onclick="removeItem(${dynamicIndex})">Remove</button>
+        </div>
+      `;
+
+      cartContainer.appendChild(newItemElement);
+      updateTotalPrice();
+    }
+
+    function removeItem(index) {
+      const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+      cartItems.splice(index, 1); // Remove the item at index
+      localStorage.setItem('cart', JSON.stringify(cartItems)); // Save updated cart to localStorage
+
+      // Reset indices and clear DOM
+      itemPrices = {};
+      itemQuantities = {};
+      selectedItems.clear();
+      loadCartItems();
+    }
+
+    function toggleSelection(index) {
+      const checkbox = document.getElementById(`select-${index}`);
+      if (checkbox.checked) {
+        selectedItems.add(index);
+      } else {
+        selectedItems.delete(index);
+      }
+      updateTotalPrice();
+    }
+
+    function changeQuantity(index, delta) {
+      const newQuantity = Math.max(1, itemQuantities[index] + delta);
+      itemQuantities[index] = newQuantity;
+      document.getElementById(`quantity-${index}`).innerText = newQuantity;
+      updateTotalPrice();
+    }
+
+    function updateTotalPrice() {
+      let total = 0;
+      selectedItems.forEach(index => {
+        total += itemQuantities[index] * itemPrices[index];
+      });
+      document.getElementById('total-price-container').innerText = `Total Price: PHP ${total.toFixed(2)}`;
+    }
+    function buySelected() {
+      if (selectedItems.size === 0) {
+        displayMessage('No items selected to purchase');
+        return;
+      }
+
+      const totalAmount = Array.from(selectedItems).reduce((sum, index) => {
+        return sum + itemQuantities[index] * itemPrices[index];
+      }, 0);
+
+      document.getElementById('modal-message').innerText = `Ready to complete your order? Your total is PHP ${totalAmount.toFixed(2)}. Click confirm to proceed.`;
+      document.getElementById('confirmation-modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('confirmation-modal').style.display = 'none';
+    }
+
+    function confirmPurchase() {
+      displayMessage('Purchase Confirmed. Thank you for your order!');
+      closeModal();
+      selectedItems.clear();
+      updateTotalPrice();
+    }
+
+    function displayMessage(message) {
+      const customMessageElement = document.createElement('div');
+      customMessageElement.style.position = 'fixed';
+      customMessageElement.style.top = '20px';
+      customMessageElement.style.left = '50%';
+      customMessageElement.style.transform = 'translateX(-50%)';
+      customMessageElement.style.backgroundColor = 'green';
+      customMessageElement.style.color = 'white';
+      customMessageElement.style.padding = '10px 20px';
+      customMessageElement.style.borderRadius = '5px';
+      customMessageElement.style.zIndex = '1000';
+      customMessageElement.innerText = message;
+      document.body.appendChild(customMessageElement);
+
+      setTimeout(() => {
+        document.body.removeChild(customMessageElement);
+      }, 3000);
+    }
+
+    window.onload = loadCartItems;
+  </script>
+</body>
+</html>

@@ -1,0 +1,540 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #deff81, #73b86d, #4f8f49);
+    font-family: sans-serif;
+    color: #333;
+}
+
+
+.montserrat-uniquifier {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+header {
+    background: linear-gradient(to right, #deff81, #73b86d, #4f8f49);
+    color: #000000;
+    text-align: center;
+    padding: 1em 0;
+}
+
+header img {
+    height: 70px;
+    width: 70px;
+    top: 6%;
+    left: 4%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    text-align: left;
+    font-family: Montserrat;
+    font-size: 1em;
+    margin-bottom: -5em;
+    top: 5%;
+    left: 12%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.logo {
+    text-align: center;
+}
+
+.logo img {
+    width: 200px;
+    height: 200px;
+}
+
+.border {
+    padding: 5px;
+    backdrop-filter: blur(30px);
+    box-shadow: 0px 0px 30px rgba(67, 83, 227, 0.37);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    max-width: 550px;
+    top: 6%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    padding: 1.5em; /* Increased padding for better spacing */
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 1em;
+}
+
+.highlight {
+    padding: 3px;
+    border: 2px solid white;
+   
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #0b5304;
+    font-weight: bold;
+}
+
+.highlight1 {
+    padding: 3px;
+    border: 3px solid #4f8f49;
+    
+    border-radius: 5px;
+    background-color: #228b22;
+    color: #efe809;
+    font-weight: bold;
+}
+
+.headline {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.slogan {
+    text-align: center;
+    font-family: Montserrat;
+    margin-top: 1em;
+    font-size: 2em;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 1em;
+    background-color: #7bf06e;
+    color: #fff;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    background-color: #efe809;
+    color: black;
+    transform: scale(1.5);
+    box-shadow: 0 4px 15px rgb(210, 248, 59);
+}
+
+.cart {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.cart img {
+    width: 50px;
+    height: auto;
+    top: 6%;
+    left: 90%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.profile {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    position: block;
+}
+
+.profile img {
+    width: 50px;
+    height: auto;
+    top: 6%;
+    left: 95%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%); /* Start slightly higher */
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%); /* End at the center */
+    }
+}
+
+@keyframes pulseShadow {
+    0% {
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.7);
+    }
+}
+
+.signup-wrapper h2 {
+    position: absolute;
+    top: 3%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.3em;
+    color:#0b5304;
+    margin-bottom: 20px; /* Add margin to separate from form */
+    animation: slideDown 0.5s ease; /* Slide down animation for the heading */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Text shadow for better readability */
+}
+
+@keyframes slideDown {
+    from {
+        transform: translate(-50%, -40%); /* Start slightly higher */
+    }
+    to {
+        transform: translate(-50%, -50%); /* End at the center */
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Hidden by default */
+    z-index: 1;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    display: none; /* Hidden by default */
+    z-index: 2;
+}
+
+.modal.active, .overlay.active {
+    display: block; /* Show when active */
+}
+
+form {
+    width: 100%; 
+}
+form input {
+    width: 95%; /* Change to 100% to fit within the wrapper */
+    padding: 10px; /* Increased padding for better appearance */
+    margin-bottom: 15px;
+    box-shadow: 0px 0px 30px rgba(67, 83, 227, 0.37);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    border-radius: 5px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; /* Transition for focus effect */
+}
+
+form input:focus {
+    border-color: #040404; 
+    box-shadow: 0 0 10px rgba(67, 83, 227, 0.5); /* Add shadow on focus */
+    transform: scale(1.02); /* Slightly scale up on focus */
+}
+
+form input:hover {
+    box-shadow: 0 0 15px rgba(67, 83, 227, 0.3); /* Add shadow on hover */
+}
+
+form input::placeholder {
+    opacity: 0.6; /* Ensure placeholder is slightly transparent */
+    transition: opacity 0.3s ease; /* Transition for placeholder opacity */
+}
+
+form input:focus::placeholder {
+    opacity: 0.4; /* Change opacity on focus for a subtle effect */
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between; /* Space between buttons */
+    gap: 10px; 
+    color: rgb(7, 7, 7);
+    width: 100%; /* Ensure buttons take full width */
+}
+
+.form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 0.8em;
+    font-weight: bold;
+    transition: color 0.3s ease, text-shadow 0.3s ease; /* Transition for hover effect */
+}
+
+form label:hover {
+    color: #4f8f49; /* Change color on hover */
+    text-shadow: 0 0 5px rgba(67, 83, 227, 0.7), 0 0 10px rgba(67, 83, 227, 0.5); /* Glowing effect on hover */
+}
+
+/* Button Styles */
+.button {
+    flex: 1; /* Allow buttons to grow equally */
+    padding: 15px; /* Set consistent padding for both buttons */
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: rgb(7, 7, 7);
+    margin: 5px; /* Add margin to create space around buttons */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Transition for hover effect */
+    position: relative; /* Position relative for pseudo-element */
+    overflow: hidden; /* Hide overflow for pseudo-element */
+}
+
+.button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(67, 83, 227, 0.5);
+    border-radius: 50%;
+    transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease; /* Transition for the glowing effect */
+    z-index: 0; /* Behind the button text */
+    transform: translate(-50%, -50%) scale(0); /* Start scaled down */
+}
+
+.button:hover::before {
+    width: 400%; /* Expand on hover */
+    height: 400%; /* Expand on hover */
+    top: 50%; /* Center */
+    left: 50%; /* Center */
+    transform: translate(-50%, -50%) scale(1); /* Scale to full size */
+}
+
+.button:hover {
+    color: #fff;
+    transform: scale(1.05); 
+    box-shadow: 0 0 15px rgba(67, 83, 227, 0.5); 
+}
+
+.button:active {
+    transform: scale(0.95); /* Scale down on click */
+}
+.back-btn {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+    box-shadow: 0 0 15px rgba(67, 83, 227, 0.5);
+    color: black;
+    font-weight: 300;
+}
+
+.confirm-btn {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+    box-shadow: 0 0 15px rgba(67, 83, 227, 0.5);
+    font-weight: 300;
+}
+
+.back-btn:hover, .confirm-btn:hover {
+    background-color: #ffc107; /* Combine hover styles */
+    transform: scale(1.05); /* Slightly scale up on hover */
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.5); /* Add shadow on hover */
+}
+
+.back-btn:active, .confirm-btn:active {
+    transform: scale(0.95); /* Scale down on click */
+}
+
+@keyframes glowingBorder {
+    0% {
+        border-color: rgba(0, 255, 60, 0.5);
+    }
+    50% {
+        border-color: rgb(0, 255, 149, 0.8);
+    }
+    100% {
+        border-color: rgba(86, 255, 126, 0.5);
+    }
+}
+
+.wrapper {
+    animation: fadeIn 0.5s ease, glowingBorder 1.5s infinite alternate; /* Add glowing border animation */
+}
+
+@keyframes glowing {
+    0% {
+        box-shadow: 0 0 5px rgba(67, 83, 227, 0.5), 0 0 10px rgba(67, 83, 227, 0.5), 0 0 15px rgba(67, 83, 227, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 10px rgba(67, 83, 227, 1), 0 0 20px rgba(67, 83, 227, 1), 0 0 30px rgba(67, 83, 227, 1);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(67, 83, 227, 0.5), 0 0 10px rgba(67, 83, 227, 0.5), 0 0 15px rgba(67, 83, 227, 0.5);
+    }
+}
+
+.login-wrapper, .signup-wrapper {
+    display: none; 
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    width: 400px; 
+    background: linear-gradient(to right, #deff81, #73b86d, #4f8f49);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center; 
+    z-index: 1000;
+    padding: 20px; 
+    opacity: 0; 
+    transition: opacity 0.5s ease; 
+    animation: glowing 1.5s infinite alternate;
+}
+
+.wrapper.active, .login-wrapper.active, .signup-wrapper.active {
+    display: flex; /* Show when active */
+    opacity: 1; /* Fade in */
+}
+
+.wrapper.active, .login-wrapper.active {
+    display: flex; /* Show when active */
+    opacity: 1; /* Fade in */
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Hidden by default */
+    z-index: 1;
+}
+
+.modal {
+    position: fixed;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    display: none; /* Hidden by default */
+    z-index: 2;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.modal.active {
+    display: block; /* Show modal when active */
+    opacity: 1; /* Fade in effect */
+}
+
+.login-wrapper, .signup-wrapper {
+    display: none; 
+}
+
+.login-wrapper.active {
+    display: block; 
+}
+
+.signup-wrapper.active {
+    display: block; /* Show sign-up form when active */
+    backdrop-filter: blur(10px); 
+    background: linear-gradient(to right, #deff81, #73b86d, #4f8f49);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.modal {
+    position: fixed;
+    width: 300px;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    display: none; /* Hidden by default */
+    z-index: 2;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.login-wrapper, .signup-wrapper {
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
+    visibility: hidden; 
+    padding: 20px;
+}
+.login-wrapper h2{
+    font-size: 2em;
+    font-weight: 600;
+    color:#0b5304
+
+}
+.login-wrapper.active, .signup-wrapper.active {
+    opacity: 1;
+    visibility: visible; 
+}
+
+.login-wrapper 
+{
+    display: none; 
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    width: 400px; 
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center; 
+    z-index: 1000;
+    padding: 20px;
+    opacity: 0; 
+    transition: opacity 0.5s ease;
+}
+
+.wrapper.active, .login-wrapper.active {
+    display: flex; 
+    opacity: 1; 
+}
+
+.signup-wrapper {
+    padding: 20px; 
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+.signup-wrapper h2 {
+    margin: 0; 
+    padding-bottom: 10px;
+}
+
+.login-wrapper h2 {
+    margin: 0; 
+    padding-bottom: 10px; 
+}

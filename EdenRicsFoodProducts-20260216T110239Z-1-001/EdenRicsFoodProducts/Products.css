@@ -1,0 +1,682 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #deff81, #73b86d, #4f8f49);
+    font-family: sans-serif;
+    color: #333;
+    z-index: 3000;
+}
+
+header {
+    background: linear-gradient(to right, #deff81, #73b86d, #4f8f49);
+    color: #000000;
+    text-align: center;
+    padding: 1em 0;
+}
+
+header img {
+    height: 70px;
+    width: 70px;
+    top: 6%;
+      left: 4%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+}
+
+h1 {
+    text-align: left;
+    font-family:sans-serif;
+    font-size: 1em;
+    margin-bottom: -5em;
+    top:5%;
+    left: 12%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.border {
+    padding: 5px;
+    border: 2px solid white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 30px rgba(67, 83, 227, 0.37);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    color: #0b5304;
+    max-width: 450px;
+    top: 6%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    padding: 0.8em;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 1em;
+    background-color: #0b5304;
+    color: #fff;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    background-color: #efe809;
+    color: black;
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgb(210, 248, 59);
+}
+
+.cart {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.cart img {
+    width: 50px;
+    height: auto;
+    top: 6%;
+    left: 90%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.profile {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.profile img {
+    width: 50px;
+    height: auto;
+    top: 6%;
+    left: 95%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Hidden by default */
+    z-index: 1;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    display: none; /* Hidden by default */
+    z-index: 2;
+}
+
+.modal.active, .overlay.active {
+    display: block; /* Show when active */
+}
+
+form {
+    width: 100%; 
+}
+form input {
+    width: 95%; /* Change to 100% to fit within the wrapper */
+    padding: 10px; /* Increased padding for better appearance */
+    margin-bottom: 15px;
+    box-shadow: 0px 0px 30px rgba(67, 83, 227, 0.37);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    border-radius: 5px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; /* Transition for focus effect */
+}
+
+form input:focus {
+    border-color: #040404; 
+    box-shadow: 0 0 10px rgba(67, 83, 227, 0.5); /* Add shadow on focus */
+    transform: scale(1.02); /* Slightly scale up on focus */
+}
+
+form input:hover {
+    box-shadow: 0 0 15px rgba(67, 83, 227, 0.3); /* Add shadow on hover */
+}
+
+form input::placeholder {
+    opacity: 0.6; /* Ensure placeholder is slightly transparent */
+    transition: opacity 0.3s ease; /* Transition for placeholder opacity */
+}
+
+form input:focus::placeholder {
+    opacity: 0.4; /* Change opacity on focus for a subtle effect */
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between; /* Space between buttons */
+    gap: 10px; 
+    color: rgb(7, 7, 7);
+    width: 100%; /* Ensure buttons take full width */
+}
+
+.form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 0.8em;
+    font-weight: bold;
+    transition: color 0.3s ease, text-shadow 0.3s ease; /* Transition for hover effect */
+}
+
+form label:hover {
+    color: #4f8f49; /* Change color on hover */
+    text-shadow: 0 0 5px rgba(67, 83, 227, 0.7), 0 0 10px rgba(67, 83, 227, 0.5); /* Glowing effect on hover */
+}
+
+/* Button Styles */
+.button {
+    flex: 1; /* Allow buttons to grow equally */
+    padding: 15px; /* Set consistent padding for both buttons */
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: rgb(7, 7, 7);
+    margin: 5px; /* Add margin to create space around buttons */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Transition for hover effect */
+    position: relative; /* Position relative for pseudo-element */
+    overflow: hidden; /* Hide overflow for pseudo-element */
+}
+
+.button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(67, 83, 227, 0.5);
+    border-radius: 50%;
+    transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease; /* Transition for the glowing effect */
+    z-index: 0; /* Behind the button text */
+    transform: translate(-50%, -50%) scale(0); /* Start scaled down */
+}
+
+.button:hover::before {
+    width: 400%; /* Expand on hover */
+    height: 400%; /* Expand on hover */
+    top: 50%; /* Center */
+    left: 50%; /* Center */
+    transform: translate(-50%, -50%) scale(1); /* Scale to full size */
+}
+
+.button:hover {
+    color: #fff;
+    transform: scale(1.05); 
+    box-shadow: 0 0 15px rgba(67, 83, 227, 0.5); 
+}
+
+.button:active {
+    transform: scale(0.95); /* Scale down on click */
+}
+.back-btn {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+    box-shadow: 0 0 15px rgba(67, 83, 227, 0.5);
+    color: black;
+    font-weight: 300;
+}
+
+.confirm-btn {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+    box-shadow: 0 0 15px rgba(67, 83, 227, 0.5);
+    font-weight: 300;
+}
+
+.back-btn:hover, .confirm-btn:hover {
+    background-color: #ffc107; /* Combine hover styles */
+    transform: scale(1.05); /* Slightly scale up on hover */
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.5); /* Add shadow on hover */
+}
+
+.back-btn:active, .confirm-btn:active {
+    transform: scale(0.95); /* Scale down on click */
+}
+
+@keyframes glowingBorder {
+    0% {
+        border-color: rgba(0, 255, 60, 0.5);
+    }
+    50% {
+        border-color: rgb(0, 255, 149, 0.8);
+    }
+    100% {
+        border-color: rgba(86, 255, 126, 0.5);
+    }
+}
+
+.wrapper {
+    animation: fadeIn 0.5s ease, glowingBorder 1.5s infinite alternate; /* Add glowing border animation */
+}
+
+@keyframes glowing {
+    0% {
+        box-shadow: 0 0 5px rgba(67, 83, 227, 0.5), 0 0 10px rgba(67, 83, 227, 0.5), 0 0 15px rgba(67, 83, 227, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 10px rgba(67, 83, 227, 1), 0 0 20px rgba(67, 83, 227, 1), 0 0 30px rgba(67, 83, 227, 1);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(67, 83, 227, 0.5), 0 0 10px rgba(67, 83, 227, 0.5), 0 0 15px rgba(67, 83, 227, 0.5);
+    }
+}
+
+.login-wrapper, .signup-wrapper {
+    display: none; 
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    width: 400px; 
+    background: linear-gradient(to right, #deff81, #73b86d, #4f8f49);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center; 
+    z-index: 1000;
+    padding: 20px; 
+    opacity: 0; 
+    transition: opacity 0.5s ease; 
+    animation: glowing 1.5s infinite alternate;
+}
+
+.wrapper.active, .login-wrapper.active, .signup-wrapper.active {
+    display: flex; /* Show when active */
+    opacity: 1; /* Fade in */
+}
+
+.wrapper.active, .login-wrapper.active {
+    display: flex; /* Show when active */
+    opacity: 1; /* Fade in */
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Hidden by default */
+    z-index: 1;
+}
+
+.modal {
+    position: fixed;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    display: none; /* Hidden by default */
+    z-index: 2;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.modal.active {
+    display: block; /* Show modal when active */
+    opacity: 1; /* Fade in effect */
+}
+
+.login-wrapper, .signup-wrapper {
+    display: none; 
+}
+
+.login-wrapper.active {
+    display: block; 
+}
+
+.signup-wrapper.active {
+    display: block; /* Show sign-up form when active */
+    backdrop-filter: blur(10px); 
+    background: linear-gradient(to right, #deff81, #73b86d, #4f8f49);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.modal {
+    position: fixed;
+    width: 300px;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    display: none; /* Hidden by default */
+    z-index: 2;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.login-wrapper, .signup-wrapper {
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
+    visibility: hidden; 
+    padding: 20px;
+}
+.login-wrapper h2{
+    font-size: 2em;
+    font-weight: 600;
+    color:#0b5304
+
+}
+.login-wrapper.active, .signup-wrapper.active {
+    opacity: 1;
+    visibility: visible; 
+}
+
+.login-wrapper 
+{
+    display: none; 
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    width: 400px; 
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center; 
+    z-index: 1000;
+    padding: 20px;
+    opacity: 0; 
+    transition: opacity 0.5s ease;
+}
+
+.wrapper.active, .login-wrapper.active {
+    display: flex; 
+    opacity: 1; 
+}
+
+.signup-wrapper {
+    padding: 20px; 
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+.signup-wrapper h2 {
+    margin: 0; 
+    padding-bottom: 10px;
+}
+
+.login-wrapper h2 {
+    margin: 0; 
+    padding-bottom: 10px; 
+}
+.menu {
+    margin-top: -400px; /* Adjusted margin-top */
+    padding: 0px 10px 30px 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-gap: 20px 40px;
+}
+
+.heading {
+    background: linear-gradient(to right, #deff81, #73b86d, #4f8f49);
+    box-shadow: 0px 0px 30px rgba(67, 83, 227, 0.37);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    border-top: 5px solid #4f8f49; /* Add a thicker top border */
+    color: #000000;
+    text-align: center;
+    margin-bottom: 30px;
+    grid-column: 1 / -1;
+    padding: 10px 0;
+    position: relative; 
+    animation: fadeIn 1s ease-in-out; /* Fade-in effect */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.heading::before {
+    content: '';
+    position: absolute;
+    top: -5px; /* Adjust this value to move the border up */
+    left: 0;
+    right: 0;
+    height: 5px; /* Height of the top border */
+    background-color: #4f8f49; /* Color of the top border */
+    border-radius: 5px 5px 0 0; /* Rounded corners for the top border */
+}
+
+.heading > h2 {
+    font-weight: 400;
+    font-size: 30px;
+    letter-spacing: 5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.heading > h3 {
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+.food-items {
+    display: grid;
+    position: relative;
+    grid-template-rows: auto 1fr;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    overflow: hidden; /* Ensures the border radius is respected */
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    animation: fadeIn 1s ease-in-out;
+    border: 2px solid transparent; /* Initial border */
+}
+
+.food-items:hover {
+    transform: scale(1.05); /* Scale effect on hover */
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.8); /* Enhanced shadow on hover */
+    border: 2px solid rgba(67, 83, 227, 0.5); /* Light border color */
+    animation: glow 1s infinite alternate; /* Glow effect */
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 15px rgba(191, 255, 0, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 25px rgba(67, 83, 227, 1);
+    }
+}
+
+.food-items img {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    border-radius: 15px 15px 0 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease; /* Smooth transition for image */
+}
+
+.food-items:hover {
+    transform: scale(1.05); /* Scale effect on hover */
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.8); /* Enhanced shadow on hover */
+    border: 2px solid rgba(67, 83, 227, 0.5); /* Light border color */
+    animation: glow 1s infinite alternate; /* Glow effect */
+}
+
+
+.food-items.blur {
+    filter: blur(4px); /* Blur effect */
+    transition: filter 0.3s ease; /* Smooth transition for blur */
+}
+
+.food-items:hover:not(:hover) {
+    filter: blur(4px); /* Blur effect for non-hovered items */
+    transition: filter 0.3s ease; /* Smooth transition for blur */
+}
+/* Blur effect for other food items when one is hovered */
+.food-items:hover ~ .food-items,
+.food-items:hover ~ .food-items:hover {
+    filter: blur(4px); /* Blur effect */
+    transition: filter 0.3s ease; /* Smooth transition for blur */
+}
+
+.details {
+    padding: 20px 10px;
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* Changed to auto for the button */
+    grid-row-gap: 15px;
+    text-align: justify; 
+    transition: background 0.3s ease; /* Smooth transition for details */
+}
+
+.details:hover {
+    background: rgb(238, 255, 0); /* Slightly change background on hover */
+    border-radius: 20px; /* Maintain rounded corners */
+}
+
+.details-sub {
+    display: grid;
+    justify-content: space-between; 
+    grid-template-columns: 1fr 1fr; /* Use 1fr to ensure equal spacing */
+}
+
+.details-sub h4 {
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px; 
+    transition: color 0.3s ease; 
+}
+
+.details-sub h4:hover {
+    color: #4f8f49;
+}
+
+.price {
+    color: #0b5304;
+    font-weight: bold; 
+    text-align: right; 
+}
+
+.details > p {
+    color: #0b5304;
+    font-size: 20px;
+    line-height: 1.5; 
+    font-weight: 400;
+    margin: 10px; 
+}
+.button-container {
+    display: flex;
+    flex-direction: row; 
+    gap: 10px;
+    justify-content: space-between; 
+    margin-top: 10px;
+}
+
+.button-container > button {
+    background: green; /* Existing style */
+    display: flex;
+    border: none;
+    color: #ffffff;
+    margin-top: -10px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    width: 155px;
+    cursor: pointer;
+    align-self: center; /* Center the button in the grid */
+    transition: background 0.3s ease, transform 0.3s ease; /* Smooth transition for button */
+}
+
+.button-container > button:hover {
+    background: darkgreen; /* Darker green on hover */
+    transform: scale(1.05); /* Slight scale effect on hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+button{
+    background: linear-gradient(to right, #deff81, #73b86d, #4f8f49);
+}
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.modal-content {
+    background: linear-gradient(to right, #deff81, #73b86d, #4f8f49);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #1eb71c;
+    width: 300px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.modal-content button {
+    background-color: white; 
+    border: 2px solid green; 
+    color: green;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+.modal-content button:hover {
+    background-color: green;
+    color: white;
+}

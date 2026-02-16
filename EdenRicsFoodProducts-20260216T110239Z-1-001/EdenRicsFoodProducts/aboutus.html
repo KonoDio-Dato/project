@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edenric's Food Products</title>
+    <link rel="stylesheet" href="aboutus.css">
+    <script src="script.js" defer></script>
+    <style>
+        #progressBar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 8px;
+            background-color: #e21f1f;
+            z-index: 9999;
+        }
+
+        .circle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(13, 228, 13, 0.466), rgba(6, 125, 44, 0.5));
+            transition: transform 0.1s, left 0.1s, top 0.1s;
+            box-shadow: 0 0 20px #faff64,
+                        0 0 60px #0d9f0b,
+                        0 0 100px #02dc88;
+            animation: colors 1s infinite;
+            transform: translate(-50%, -50%);
+        }
+
+        .circle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @media (max-width: 724px) {
+            .circle-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+  <header>
+    <h3>Edenric's Food <br> Products</h3>
+    <img src="/images/Eden.png" alt="Logo">
+</header>
+</div>
+
+    <div class="circle-container">
+        <!-- Circles for animation -->
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const coords = { x: 0, y: 0 };
+            const circles = document.querySelectorAll(".circle");
+
+            circles.forEach(function (circle) {
+                circle.x = 0;
+                circle.y = 0;
+            });
+
+            window.addEventListener("mousemove", function (e) {
+                coords.x = e.pageX;
+                coords.y = e.pageY - window.scrollY; // Adjust for vertical scroll position
+            });
+
+            function animateCircles() {
+                let x = coords.x;
+                let y = coords.y;
+
+                circles.forEach(function (circle, index) {
+                    circle.style.left = `${x - 12}px`;
+                    circle.style.top = `${y - 12}px`;
+                    circle.style.transform = `scale(${(circles.length - index) / circles.length})`;
+
+                    const nextCircle = circles[index + 1] || circles[0];
+                    circle.x = x;
+                    circle.y = y;
+
+                    x += (nextCircle.x - x) * 0.25;
+                    y += (nextCircle.y - y) * 0.25;
+                });
+
+                requestAnimationFrame(animateCircles);
+            }
+
+            animateCircles();
+        });
+    </script>
+
+    <!-- Progress bar -->
+    <div id="progressBar"></div>
+    <script>
+        window.onscroll = function () {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+    </script>
+    <div class="container">
+      
+      <nav>
+        <div class="border">
+            <a href="index.html">Home</a>
+            <a href="Product.html">Products</a>
+            <a href="Testimonial.html">Testimonials</a>
+            <a href="aboutus.html">About Us</a>
+        </div>
+        <button class="cart" onclick="addToCart()">
+          <img src="/images/cart.png" alt="Cart">
+      </button>
+      
+      <button class="profile" id="signUpButton" onclick="toggleModal()">
+          <img src="/images/profile.png" alt="SignUp/LogIn" title="SignUp"> 
+      </button>
+        </nav>
+        <div class="heading">
+        <h1>About Us</h1>
+        <p>Our business, Edenric’s Food Product was established during the pandemic,<br>
+           a time when many individuals faced job losses. In response to the pandemic <br>
+           and the influence of farming, Edenric’s created a food business where products are a 100% <br>
+           organic and does not contain any chemicals. We aim to cater to a wide range of consumers, <br>
+            especially health-conscious teenagers, the elderly, and children.</p>
+          </div>
+            <div class="container">
+              <section class="about">
+                <div class="about-image">
+                  <img src="/images/lump.jpg" alt="Fresh Lumpia">
+                </div>
+                <div class="about-content">
+                  <h2>Fresh Lumpia <br> Best Selling</h2>
+                  <p>Our vision is to offer delicious products without sacrificing its nutritional values.
+                    <br> At Edenric’s, we believe that healthy eating should be accessible and enjoyable
+                    for everyone.
+                    <br> Our organic product are created to support 
+                     a balanced diet while delighting the taste buds.</p>
+                </div>
+              </section>
+            </div>
+            <div class="container">
+              <div class="card">
+                <h2>Feel Free To Contact Us</h2>
+              </div>
+            </div>
+            
+            <div class="container">
+              <div class="cards">
+                <i class="icon icon-facebook"></i>
+                <img src="/images/fb.png" alt="Facebook">
+                <h2>FACEBOOK</h2>
+                <p>@EdenRics</p>
+              </div>
+            
+              <div class="cards">
+                <i class="icon icon-email"></i>
+                <img src="/images/Email.png" alt="Email">
+                <h2>EMAIL ADDRESS</h2>
+                <p>ignlee.bs@gmail.com</p>
+              </div>
+            </div>
+            
+            <div class="container">
+              <div class="cards1">
+                <i class="icon icon-person"></i>
+                <img src="/images/contact.png" alt="Contact">
+                <h2>CONTACT PERSON</h2>
+                <p>Imelda N. Lee</p>
+              </div>
+            
+              <div class="cards1">
+                <i class="icon icon-phone"></i>
+                <img src="/images/call.png" alt="Phone number">
+                <h2>PHONE NUMBER</h2>
+                <p>0916 585 2941</p>
+              </div>
+            </div>
+            
+            <div class="parent-container">
+              <div class="card1">
+                <h2>ADDRESS</h2>
+                <p>Purok 3, Barangay I, Daet, <br>Camarines Norte</p>
+                <a href="https://maps.app.goo.gl/dtqDKP8DxMsimtGX7">
+                  <img src="/images/location.png" alt="Location">
+                </a>
+              </div>
+            </div>
+        
+    <div class="main-container"></div>
+    <footer>
+        <div class="container">
+          <div class="profile">
+            <div class="logo">
+             
+              <a href="">Edenric’s FoodProducts</a>
+            </div>
+  
+            <!-- Short About -->
+            <p>
+                Thank you for your patronage! <br>
+                 We appreciate your presence and taking your time using our website. <br>
+                  If you have any questions or feedbacks, <br>
+                  please contact us in our contact details. 
+            </p>
+  
+            <!-- Social Media -->
+
+          </div>
+  
+          <div class="link-container">
+            <div class="information">
+              
+              <ul>
+                <li>
+                  <a href="#"> <b>SUPLIER’S NAME:</b> <br>
+                    Malaya Farmers Agriculture Cooperative
+                    </a>
+                </li>
+                <li>
+                  <a href="#"> <b>Facebook:</b> <br>
+                    Malaya Farmers Agriculture Cooperative MFAC</a>
+                </li>
+                <li>
+                  <a href="#"><b>Contact Person:</b> <br>
+                    Rodrigo Belleza</a>
+                </li>
+                <li>
+                  <a href="#"><b>Contact Number:</b> <br> 09</a>
+                </li>
+              </ul>
+            </div>
+  
+            <div class="resource">
+             
+              <ul>
+                <li>
+                  <a href="#"> <b>SUPPLIER'S NAME:</b> <br> UGAT Integrated Farm</a>
+                </li>
+                <li>
+                  <a href="#"><b>Facebook: </b><br> UGAT Urban Gardening and Agricultural Technologies 
+                  </a>
+                </li>
+                <li>
+                  <a href="#"> <b>Contact Person:</b>
+                    <br>Randy Naing</a>
+                </li>
+                <li>
+                  <a href="#"> <b>Contact Number:</b> <br>
+                    0998 561 5387</a>
+                </li>
+              </ul>
+            </div>
+  
+           
+            </div>
+          </div>
+        </div>
+      </footer>
+  
+    </div>
+</body>
+</html>

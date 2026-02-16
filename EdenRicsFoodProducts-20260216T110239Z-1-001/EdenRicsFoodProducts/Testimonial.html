@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edenric's Food Products</title>
+    <link rel="stylesheet" href="Testimonial.css">
+    <script src="Testimonial.js" defer></script>
+    <style>
+        #progressBar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 8px;
+            background-color: #e21f1f;
+            z-index: 9999;
+        }
+
+        .circle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(13, 228, 13, 0.466), rgba(6, 125, 44, 0.5));
+            transition: transform 0.1s, left 0.1s, top 0.1s;
+            box-shadow: 0 0 20px #faff64,
+                        0 0 60px #0d9f0b,
+                        0 0 100px #02dc88;
+            animation: colors 1s infinite;
+            transform: translate(-50%, -50%);
+        }
+
+        .circle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @media (max-width: 724px) {
+            .circle-container {
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Edenric's Food <br> Product
+        </h1>
+        <img src="/images/Eden.png" alt="Logo">
+    </header>
+    <nav>
+        <div class="border">
+            <a href="index.html">Home</a>
+            <a href="Product.html">Products</a>
+            <a href="Testimonial.html">Testimonials</a>
+            <a href="aboutus.html">About Us</a>
+        </div>
+    </nav>
+
+    <div class="circle-container">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const coords = { x: 0, y: 0 };
+            const circles = document.querySelectorAll(".circle");
+
+            circles.forEach(function (circle) {
+                circle.x = 0;
+                circle.y = 0;
+            });
+
+            window.addEventListener("mousemove", function (e) {
+                coords.x = e.pageX;
+                coords.y = e.pageY - window.scrollY; 
+            });
+
+            function animateCircles() {
+                let x = coords.x;
+                let y = coords.y;
+
+                circles.forEach(function (circle, index) {
+                    circle.style.left = `${x - 12}px`;
+                    circle.style.top = `${y - 12}px`;
+                    circle.style.transform = `scale(${(circles.length - index) / circles.length})`;
+
+                    const nextCircle = circles[index + 1] || circles[0];
+                    circle.x = x;
+                    circle.y = y;
+
+                    x += (nextCircle.x - x) * 0.25;
+                    y += (nextCircle.y - y) * 0.25;
+                });
+
+                requestAnimationFrame(animateCircles);
+            }
+
+            animateCircles();
+        });
+    </script>
+
+
+    <div id="progressBar"></div>
+    <script>
+        window.onscroll = function () {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+    </script>
+    <button class="cart" onclick="goToAddToCartPage()">
+        <img src="/images/cart.png" alt="Cart">
+    </button>
+    <button class="profile" onclick="toggleSignUpForm()">
+        <img src="/images/profile.png" alt="SignUp/LogIn"> 
+    </button>
+
+    <div class="container">
+        <form id="commentForm">
+            <div class="input-container">
+            <input type="text" id="nameInput" placeholder="Name" required />
+            <div id="nameError" class="error"></div>
+            <select id="productSelect" required>
+                <option value="" disabled selected>Select a Product</option>
+                <option value="Fresh Lumpia">Fresh Lumpia</option>
+                <option value="Spiced Coco Vinegar">Spiced Coco Vinegar</option>
+                <option value="Pineapple Vinaigrette">Pineapple Vinaigrette</option>
+                <option value="Pineapple Sweet Chili">Pineapple Sweet Chili</option>
+                <option value="Basil Pesto">Basil Pesto</option>
+                <option value="Sampalok Juice RTD">Sampalok Juice RTD</option>
+                <option value="Sampalok Juice (Concentrated)">Sampalok Juice (Concentrated)</option>
+                <option value="Roselle Juicee RTD">Roselle Juicee RTD</option>
+                <option value="Banana Cake">Banana Cake</option>
+                <option value="Chicken Empanada">Chicken Empanada</option>
+                <option value="Tuna Clubhouse">Tuna Clubhouse</option>
+                <option value="Veggie Burger">Veggie Burger</option>
+                <option value="CocoMinty">CocoMinty</option>
+                <option value="CocoPinya">CocoPinya</option>
+                <option value="ChocoLay">ChocoLay</option>
+                <option value="Toasted Coconut">Toasted Coconut </option>
+                
+                <div id="nameError" class="tooltip">Name can only contain letters and spaces.</div>
+            
+            </select>
+        </div>
+            <textarea id="commentInput" placeholder="Write a comment..." required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="commentsContainer">
+            <h2>Comments:</h2>
+            <ul id="commentsList"></ul>
+        </div>
+    </div>
+    
+    
+    
+</body>
+</html>
